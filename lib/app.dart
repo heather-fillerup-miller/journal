@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/journal_entry_list_screen.dart';
+import './models/journal.dart';
+import './models/journal_entry.dart';
 
 class MyApp extends StatefulWidget {
   final SharedPreferences prefs;
@@ -14,6 +16,20 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   static const themeKey = 'darkTheme';
   static const userKey = 'newUser';
+  final Journal journal = Journal(journalEntries: [
+    JournalEntry(
+        body: 'Squats 5 x 25 \nLeg Press t5 x 100',
+        title: 'Leg Workout',
+        id: 1,
+        dateTime: DateTime.now(),
+        rating: 3),
+    JournalEntry(
+        body: 'Barbell Row\t5 x 45 \nDumbbell Bicep Curls\t5 x 20',
+        title: 'Back and Biceps',
+        id: 2,
+        dateTime: DateTime.now(),
+        rating: 4),
+  ]);
 
   //start with dart theme and new user
   bool get getDarkTheme => widget.prefs.getBool(themeKey) ?? false;
@@ -43,6 +59,7 @@ class _MyAppState extends State<MyApp> {
         '/': (context) => JournalEntryListScreen(
               darkTheme: getDarkTheme,
               toggleDarkTheme: toggleDarkTheme,
+              journal: journal,
             )
       },
     );

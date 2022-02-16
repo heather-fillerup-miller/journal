@@ -8,7 +8,6 @@ class JournalScaffold extends StatefulWidget {
   final void Function(bool value) toggleDarkTheme;
   final Widget routeBody;
 
-
   const JournalScaffold(
       {Key? key,
       required this.title,
@@ -55,24 +54,27 @@ class _JournalScaffoldState extends State<JournalScaffold> {
       );
     }
     return Scaffold(
-        key: _scaffoldKey,
-        endDrawer: SettingsDrawer(
-          darkTheme: widget.darkTheme,
-          toggleDarkTheme: widget.toggleDarkTheme,
+      key: _scaffoldKey,
+      endDrawer: SettingsDrawer(
+        darkTheme: widget.darkTheme,
+        toggleDarkTheme: widget.toggleDarkTheme,
+      ),
+      appBar: AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new),
+            onPressed: () => Navigator.of(context).pop()),
+        centerTitle: true,
+        title: Text(
+          widget.title,
         ),
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            widget.title,
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () => _scaffoldKey.currentState!.openEndDrawer(),
-            )
-          ],
-        ),
-        body: widget.routeBody,
-      );
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => _scaffoldKey.currentState!.openEndDrawer(),
+          )
+        ],
+      ),
+      body: widget.routeBody,
+    );
   }
 }
