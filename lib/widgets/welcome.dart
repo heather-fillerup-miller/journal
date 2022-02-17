@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
 import 'journal_scaffold.dart';
 
-class Welcome extends StatefulWidget {
+class Welcome extends StatelessWidget {
   final bool darkTheme;
   final void Function(bool value) toggleDarkTheme;
+  final String title = "Welcome";
 
   const Welcome(
       {Key? key, required this.darkTheme, required this.toggleDarkTheme})
       : super(key: key);
 
   @override
-  State<Welcome> createState() => _WelcomeState();
-}
-
-class _WelcomeState extends State<Welcome> {
-  final String title = "Welcome";
-
-  @override
   Widget build(BuildContext context) {
     return JournalScaffold(
-      darkTheme: widget.darkTheme,
-      toggleDarkTheme: widget.toggleDarkTheme,
+      darkTheme: darkTheme,
+      toggleDarkTheme: toggleDarkTheme,
       title: title,
       allowNewEntry: true,
       routeBody: (Center(

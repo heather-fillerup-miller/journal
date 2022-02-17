@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:journal/widgets/welcome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/journal_entry_list_screen.dart';
 import './models/journal.dart';
@@ -17,23 +18,23 @@ class _MyAppState extends State<MyApp> {
   static const themeKey = 'darkTheme';
   static const userKey = 'newUser';
   final Journal journal = Journal(journalEntries: [
-    JournalEntry(
-        body: 'Squats 5 x 25 \nLeg Press t5 x 100',
-        title: 'Leg Workout',
-        id: 1,
-        dateTime: DateTime.now(),
-        rating: 3),
-    JournalEntry(
-        body: 'Barbell Row\t5 x 45 \nDumbbell Bicep Curls\t5 x 20',
-        title: 'Back and Biceps',
-        id: 2,
-        dateTime: DateTime.now(),
-        rating: 4),
+    // JournalEntry(
+    //     body: 'Squats 5 x 25 \nLeg Press t5 x 100',
+    //     title: 'Leg Workout',
+    //     id: 1,
+    //     dateTime: DateTime.now(),
+    //     rating: 3),
+    // JournalEntry(
+    //     body: 'Barbell Row\t5 x 45 \nDumbbell Bicep Curls\t5 x 20',
+    //     title: 'Back and Biceps',
+    //     id: 2,
+    //     dateTime: DateTime.now(),
+    //     rating: 4),
   ]);
 
   //start with dart theme and new user
   bool get getDarkTheme => widget.prefs.getBool(themeKey) ?? false;
-  //bool get getNewUser => widget.prefs.getBool(USER_KEY) ?? true;
+  bool get getNewUser => widget.prefs.getBool(userKey) ?? true;
 
   //toggle the theme in preferences
   void toggleDarkTheme(bool value) {
@@ -41,10 +42,9 @@ class _MyAppState extends State<MyApp> {
     setState(() => {});
   }
 
-  /*//change the user
   void returningUser(bool value) {
-    widget.prefs.setBool(USER_KEY, value);
-  }*/
+    widget.prefs.setBool(userKey, value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +56,13 @@ class _MyAppState extends State<MyApp> {
       ),
       routes: {
         //adjust on first visit
-        '/': (context) => JournalEntryListScreen(
-              darkTheme: getDarkTheme,
-              toggleDarkTheme: toggleDarkTheme,
-              journal: journal,
-            )
+        '/': (context) => journal.journalEntries.isNotEmpty
+            ? JournalEntryListScreen(
+                darkTheme: getDarkTheme,
+                toggleDarkTheme: toggleDarkTheme,
+                journal: journal)
+            : Welcome(
+                darkTheme: getDarkTheme, toggleDarkTheme: toggleDarkTheme),
       },
     );
   }

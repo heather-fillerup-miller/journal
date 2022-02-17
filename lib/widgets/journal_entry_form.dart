@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import '../db/journal_entry_dto.dart';
+import '../widgets/entry_field.dart';
+import 'enter_date.dart';
 
 class JournalEntryForm extends StatefulWidget {
-  final newEntry = JournalEntryDTO();
+  final bool darkTheme;
+  final void Function(bool value) toggleDarkTheme;
 
-  JournalEntryForm({Key? key}) : super(key: key);
+  const JournalEntryForm(
+      {Key? key, required this.darkTheme, required this.toggleDarkTheme})
+      : super(key: key);
 
   @override
   _JournalEntryFormState createState() => _JournalEntryFormState();
@@ -12,31 +17,22 @@ class JournalEntryForm extends StatefulWidget {
 
 class _JournalEntryFormState extends State<JournalEntryForm> {
   final _formKey = GlobalKey<FormState>();
+  final JournalEntryDTO newEntry = JournalEntryDTO();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(5),
       child: Form(
         key: _formKey,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            TextFormField(
-              autofocus: true,
-              decoration: const InputDecoration(
-                  labelText: 'Title', border: OutlineInputBorder()),
-              onSaved: (value) {
-                widget.newEntry.title = value;
-              },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a title';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 10),
+            EnterDate(saveMethod: newEntry.setDateTime),
+            EntryField(title: 'Title', saveMethod: newEntry.setTitle),
+            EntryField(title: 'Body', saveMethod: newEntry.setBody),
+            EntryField(title: 'Rating', saveMethod: newEntry.setRating),
+            const SizedBox(height: 5),
             saveButton(context),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'settings_drawer.dart';
+import '../screens/journal_new_entry_screen.dart';
 
 class JournalScaffold extends StatefulWidget {
   final String title;
@@ -47,7 +48,14 @@ class _JournalScaffoldState extends State<JournalScaffold> {
         ),
         body: widget.routeBody,
         floatingActionButton: FloatingActionButton(
-          onPressed: () => {}, //go to journal entry form
+          onPressed: () => {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => JournalNewEntryScreen(
+                        darkTheme: widget.darkTheme,
+                        toggleDarkTheme: widget.toggleDarkTheme)))
+          }, //go to journal entry form
           tooltip: 'New Entry',
           child: const Icon(Icons.add),
         ),
@@ -55,6 +63,7 @@ class _JournalScaffoldState extends State<JournalScaffold> {
     }
     return Scaffold(
       key: _scaffoldKey,
+      resizeToAvoidBottomInset: false,
       endDrawer: SettingsDrawer(
         darkTheme: widget.darkTheme,
         toggleDarkTheme: widget.toggleDarkTheme,
