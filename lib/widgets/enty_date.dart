@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class EnterDate extends StatefulWidget {
+class EntryDate extends StatefulWidget {
   final Function(DateTime value) saveMethod;
 
-  const EnterDate({Key? key, required this.saveMethod}) : super(key: key);
+  const EntryDate({Key? key, required this.saveMethod}) : super(key: key);
 
   @override
-  State<EnterDate> createState() => _EnterDateState();
+  State<EntryDate> createState() => _EntryDateState();
 }
 
-class _EnterDateState extends State<EnterDate> {
+class _EntryDateState extends State<EntryDate> {
   TextEditingController dateInput = TextEditingController();
 
   @override

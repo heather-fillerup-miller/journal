@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../db/journal_entry_dto.dart';
 import '../widgets/entry_field.dart';
-import 'enter_date.dart';
+import 'enty_date.dart';
 
 class JournalEntryForm extends StatefulWidget {
   final bool darkTheme;
@@ -28,7 +28,7 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            EnterDate(saveMethod: newEntry.setDateTime),
+            EntryDate(saveMethod: newEntry.setDateTime),
             EntryField(title: 'Title', saveMethod: newEntry.setTitle),
             EntryField(title: 'Body', saveMethod: newEntry.setBody),
             EntryField(title: 'Rating', saveMethod: newEntry.setRating),
