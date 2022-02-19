@@ -3,8 +3,11 @@ import 'package:intl/intl.dart';
 
 class EntryDate extends StatefulWidget {
   final Function(DateTime value) saveMethod;
+  final FocusNode inputOrder;
 
-  const EntryDate({Key? key, required this.saveMethod}) : super(key: key);
+  const EntryDate(
+      {Key? key, required this.saveMethod, required this.inputOrder})
+      : super(key: key);
 
   @override
   State<EntryDate> createState() => _EntryDateState();
@@ -15,7 +18,7 @@ class _EntryDateState extends State<EntryDate> {
 
   @override
   void initState() {
-    dateInput.text = "";
+    dateInput.text = DateFormat('MM-dd-yyyy').format(DateTime.now());
     super.initState();
   }
 
@@ -23,9 +26,12 @@ class _EntryDateState extends State<EntryDate> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(3.0),
-      child: TextField(
+      child: TextFormField(
+        autofocus: true,
+        focusNode: widget.inputOrder,
         controller: dateInput,
         decoration: const InputDecoration(
+          icon: Icon(Icons.calendar_today_outlined),
           labelText: "Date",
           border: OutlineInputBorder(),
         ),
@@ -37,14 +43,11 @@ class _EntryDateState extends State<EntryDate> {
               firstDate: DateTime(2000),
               lastDate: DateTime(2100));
           if (pickedDate != null) {
-            String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+            String formattedDate = DateFormat('MM-dd-yyyy').format(pickedDate);
             setState(() {
               dateInput.text = formattedDate;
               widget.saveMethod(pickedDate);
             });
-          } else {
-            dateInput.text = DateFormat('yyyy-MM-dd').format(DateTime.now());
-            widget.saveMethod(DateTime.now());
           }
         },
       ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../db/journal_entry_dto.dart';
-import '../widgets/entry_field.dart';
+import 'entry_text.dart';
 import 'enty_date.dart';
+import 'entry_rating.dart';
 
 class JournalEntryForm extends StatefulWidget {
   final bool darkTheme;
@@ -18,6 +19,19 @@ class JournalEntryForm extends StatefulWidget {
 class _JournalEntryFormState extends State<JournalEntryForm> {
   final _formKey = GlobalKey<FormState>();
   final JournalEntryDTO newEntry = JournalEntryDTO();
+  FocusNode input1 = FocusNode();
+  FocusNode input2 = FocusNode();
+  FocusNode input3 = FocusNode();
+  FocusNode input4 = FocusNode();
+
+  @override
+  void dispose() {
+    input1.dispose();
+    input2.dispose();
+    input3.dispose();
+    input4.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +40,26 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
       child: Form(
         key: _formKey,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            EntryDate(saveMethod: newEntry.setDateTime),
-            EntryField(title: 'Title', saveMethod: newEntry.setTitle),
-            EntryField(title: 'Body', saveMethod: newEntry.setBody),
-            EntryField(title: 'Rating', saveMethod: newEntry.setRating),
-            const SizedBox(height: 5),
+            EntryDate(
+              saveMethod: newEntry.setDateTime,
+              inputOrder: input1,
+            ),
+            EntryText(
+              title: 'Title',
+              saveMethod: newEntry.setTitle,
+              inputOrder: input2,
+            ),
+            EntryText(
+              title: 'Body',
+              saveMethod: newEntry.setBody,
+              inputOrder: input3,
+            ),
+            EntryRating(
+              saveMethod: newEntry.setRating,
+              inputOrder: input4,
+            ),
             saveButton(context),
           ],
         ),
@@ -45,9 +72,13 @@ class _JournalEntryFormState extends State<JournalEntryForm> {
         child: const Text('Save'),
         onPressed: () {
           if (_formKey.currentState!.validate()) {
+            newEntry.dateTime ??= DateTime.now();
+            newEntry.rating ??= 1;
             _formKey.currentState!.save();
-            //addDateToJournalEntryValues();
-            Navigator.of(context).pop;
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Jounral Entry Saved!'),
+            ));
+            Navigator.of(context).pop();
           }
         });
   }

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
-class EntryField extends StatelessWidget {
+class EntryText extends StatelessWidget {
   final String title;
+  final FocusNode inputOrder;
   final Function(String? value) saveMethod;
 
-  const EntryField({Key? key, required this.title, required this.saveMethod})
+  const EntryText(
+      {Key? key,
+      required this.title,
+      required this.saveMethod,
+      required this.inputOrder})
       : super(key: key);
 
   @override
@@ -12,7 +17,7 @@ class EntryField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: TextFormField(
-        autofocus: true,
+        focusNode: inputOrder,
         decoration: InputDecoration(
             labelText: title, border: const OutlineInputBorder()),
         onSaved: (value) {
