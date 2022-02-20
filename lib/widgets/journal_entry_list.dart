@@ -24,55 +24,42 @@ class JournalEntryList extends StatelessWidget {
   }
 
   Widget verticalLayout(BuildContext context, BoxConstraints constraints) {
-    return SizedBox(
-      height: constraints.maxHeight,
-      child: ListView.builder(
-        itemCount: journalEntries.length,
-        itemBuilder: (context, index) {
-          return Card(child: shortEntryTile(context, journalEntries[index]));
-        },
-      ),
+    return ListView.builder(
+      itemCount: journalEntries.length,
+      itemBuilder: (context, index) {
+        return Card(
+            child: shortEntryTile(context, constraints, journalEntries[index]));
+      },
     );
   }
 
-  Widget horizontalLayout(BuildContext contex, BoxConstraints constraints) {
-    return Row(
-      children: [
-        shortEntryListView(constraints),
-        detailedEntryListView(constraints)
-      ],
+  Widget horizontalLayout(BuildContext context, BoxConstraints constraints) {
+    return ListView.builder(
+      itemCount: journalEntries.length,
+      itemBuilder: (context, index) {
+        return Card(
+            child: Row(
+          children: [
+            Expanded(
+              flex: 3,
+              child: shortEntryTile(
+                context,
+                constraints,
+                journalEntries[index],
+              ),
+            ),
+            Expanded(
+                flex: 7,
+                child: detailEntryTile(
+                    context, constraints, journalEntries[index]))
+          ],
+        ));
+      },
     );
   }
 
-  Widget shortEntryListView(BoxConstraints constraints) {
-    return Expanded(
-      child: SizedBox(
-        height: constraints.maxHeight,
-        child: ListView.builder(
-          itemCount: journalEntries.length,
-          itemBuilder: (context, index) {
-            return Card(child: shortEntryTile(context, journalEntries[index]));
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget detailedEntryListView(BoxConstraints constraints) {
-    return Expanded(
-      child: SizedBox(
-        height: constraints.maxHeight,
-        child: ListView.builder(
-          itemCount: journalEntries.length,
-          itemBuilder: (context, index) {
-            return Card(child: detailEntryTile(journalEntries[index]));
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget shortEntryTile(BuildContext context, JournalEntry entry) {
+  Widget shortEntryTile(
+      BuildContext context, BoxConstraints constraints, JournalEntry entry) {
     return ListTile(
         title: Text(entry.title),
         subtitle: Text(entry.getStyledDate),
@@ -87,7 +74,8 @@ class JournalEntryList extends StatelessWidget {
         });
   }
 
-  Widget detailEntryTile(JournalEntry entry) {
+  Widget detailEntryTile(
+      BuildContext context, BoxConstraints constraints, JournalEntry entry) {
     return ListTile(
       leading: Text(entry.getStyledDate),
       title: Text(entry.title),
