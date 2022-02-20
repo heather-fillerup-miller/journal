@@ -10,8 +10,4 @@ class JournalEntryDTO {
   void setBody(value) => body = value;
   void setDateTime(value) => dateTime = value;
   void setRating(value) => rating = value;
-
-  @override
-  String toString() =>
-      'Title: $title, Body: $body, Time: $dateTime, Rating: $rating';
 }

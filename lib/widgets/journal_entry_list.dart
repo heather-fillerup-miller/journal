@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../screens/journal_entry_screen.dart';
 import '../models/journal_entry.dart';
+import '../widgets/entry_tile_detailed.dart';
+import '../widgets/entry_tile_short.dart';
 
 class JournalEntryList extends StatelessWidget {
   final bool darkTheme;
@@ -28,7 +29,10 @@ class JournalEntryList extends StatelessWidget {
       itemCount: journalEntries.length,
       itemBuilder: (context, index) {
         return Card(
-            child: shortEntryTile(context, constraints, journalEntries[index]));
+            child: ShortEntryTile(
+                entry: journalEntries[index],
+                darkTheme: darkTheme,
+                toggleDarkTheme: toggleDarkTheme));
       },
     );
   }
@@ -42,50 +46,16 @@ class JournalEntryList extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: shortEntryTile(
-                context,
-                constraints,
-                journalEntries[index],
-              ),
+              child: ShortEntryTile(
+                  entry: journalEntries[index],
+                  darkTheme: darkTheme,
+                  toggleDarkTheme: toggleDarkTheme),
             ),
             Expanded(
-                flex: 7,
-                child: detailEntryTile(
-                    context, constraints, journalEntries[index]))
+                flex: 7, child: DetailEntryTile(entry: journalEntries[index]))
           ],
         ));
       },
-    );
-  }
-
-  Widget shortEntryTile(
-      BuildContext context, BoxConstraints constraints, JournalEntry entry) {
-    return ListTile(
-        title: Text(entry.title),
-        subtitle: Text(entry.getLongStyledDate),
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => JournalEntryScreen(
-                      darkTheme: darkTheme,
-                      toggleDarkTheme: toggleDarkTheme,
-                      entry: entry)));
-        });
-  }
-
-  Widget detailEntryTile(
-      BuildContext context, BoxConstraints constraints, JournalEntry entry) {
-    return ListTile(
-      leading: Column(
-        children: [
-          const Icon(Icons.star_border_outlined),
-          Text(entry.rating.toString()),
-        ],
-      ),
-      title: Text(entry.title),
-      subtitle: Text(entry.body),
-      trailing: Text(entry.getShortStyledDate),
     );
   }
 }
