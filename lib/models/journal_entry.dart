@@ -18,5 +18,6 @@ class JournalEntry {
   String toString() =>
       'Title: $title, Body: $body, Time: $dateTime, Rating: $rating';
 
-  String get getStyledDate => DateFormat('MM-dd-yyyy').format(dateTime);
+  String get getShortStyledDate => DateFormat.yMd().format(dateTime);
+  String get getLongStyledDate => DateFormat.yMMMMd('en_US').format(dateTime);
 }

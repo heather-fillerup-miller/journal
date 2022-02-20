@@ -24,7 +24,7 @@ class JournalEntryDetails extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: Text(
-                  entry.getStyledDate,
+                  entry.getShortStyledDate,
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),

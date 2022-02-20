@@ -62,7 +62,7 @@ class JournalEntryList extends StatelessWidget {
       BuildContext context, BoxConstraints constraints, JournalEntry entry) {
     return ListTile(
         title: Text(entry.title),
-        subtitle: Text(entry.getStyledDate),
+        subtitle: Text(entry.getLongStyledDate),
         onTap: () {
           Navigator.push(
               context,
@@ -77,15 +77,15 @@ class JournalEntryList extends StatelessWidget {
   Widget detailEntryTile(
       BuildContext context, BoxConstraints constraints, JournalEntry entry) {
     return ListTile(
-      leading: Text(entry.getStyledDate),
-      title: Text(entry.title),
-      subtitle: Text(entry.body),
-      trailing: Column(
+      leading: Column(
         children: [
           const Icon(Icons.star_border_outlined),
           Text(entry.rating.toString()),
         ],
       ),
+      title: Text(entry.title),
+      subtitle: Text(entry.body),
+      trailing: Text(entry.getShortStyledDate),
     );
   }
 }
