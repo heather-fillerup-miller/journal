@@ -65,7 +65,7 @@ class _JournalScaffoldState extends State<JournalScaffold> {
       appBar: AppBar(
         leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new),
-            onPressed: () => Navigator.of(context).pop()),
+            onPressed: () => Navigator.of(context).popAndPushNamed('/')),
         centerTitle: true,
         title: Text(
           widget.title,
