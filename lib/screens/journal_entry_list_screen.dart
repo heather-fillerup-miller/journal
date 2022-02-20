@@ -58,18 +58,10 @@ class _JournalEntryListScreenState extends State<JournalEntryListScreen> {
 
   void loadJournal() async {
     final databaseManager = DatabaseManager.getInstance();
-    List<Map> journalRecords =
-        await databaseManager.db.rawQuery('SELECT * FROM journal_entries');
-    final journalEntries = journalRecords.map((record) {
-      return JournalEntry(
-          id: record['id'],
-          title: record['title'],
-          body: record['body'],
-          rating: record['rating'],
-          dateTime: DateTime.parse(record['date']));
-    }).toList();
+    List<JournalEntry> journalRecords =
+        await databaseManager.loadJournalEntries();
     setState(() {
-      widget.journal = Journal(journalEntries: journalEntries);
+      widget.journal = Journal(journalEntries: journalRecords);
     });
   }
 }
