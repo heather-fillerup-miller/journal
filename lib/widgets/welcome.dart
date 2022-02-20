@@ -11,16 +11,18 @@ class Welcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        const Icon(Icons.book_rounded, size: 150),
-        Text(
-          "Journal",
-          style: Theme.of(context).textTheme.headline6,
-        ),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          const Icon(Icons.book_rounded, size: 150),
+          Text(
+            "Journal",
+            style: Theme.of(context).textTheme.headline6,
+          ),
+        ],
+      ),
     );
   }
 }
