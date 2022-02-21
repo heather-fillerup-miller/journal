@@ -14,20 +14,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   static const themeKey = 'darkTheme';
-  static const userKey = 'newUser';
 
   //start with dart theme and new user
   bool get getDarkTheme => widget.prefs.getBool(themeKey) ?? false;
-  bool get getNewUser => widget.prefs.getBool(userKey) ?? true;
 
   //toggle the theme in preferences
   void toggleDarkTheme(bool value) {
     widget.prefs.setBool(themeKey, value);
     setState(() => {});
-  }
-
-  void returningUser(bool value) {
-    widget.prefs.setBool(userKey, value);
   }
 
   @override
