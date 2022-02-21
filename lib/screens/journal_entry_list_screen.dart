@@ -30,6 +30,7 @@ class _JournalEntryListScreenState extends State<JournalEntryListScreen> {
   @override
   Widget build(BuildContext context) {
     if (widget.journal == null) {
+      loadJournal(); //ensure journal is loaded when theme is toggled
       return JournalScaffold(
           toggleDarkTheme: widget.toggleDarkTheme,
           darkTheme: widget.darkTheme,
