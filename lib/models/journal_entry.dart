@@ -14,10 +14,6 @@ class JournalEntry {
       required this.dateTime,
       required this.rating});
 
-  @override
-  String toString() =>
-      'Title: $title, Body: $body, Time: $dateTime, Rating: $rating';
-
   String get getShortStyledDate => DateFormat.yMd().format(dateTime);
   String get getLongStyledDate => DateFormat.yMMMMd('en_US').format(dateTime);
 }
